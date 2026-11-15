@@ -6,16 +6,15 @@ const jwt = require("jsonwebtoken");
 
 const app = express();
 app.use(express.json());
-
-const PORT = 3000;
-const SECRET_KEY = "lab4_secret_key_change_before_deployment";
+const PORT = process.env.PORT || 3000;
+const SECRET_KEY = process.env.JWT_SECRET || "lab4_local_secret";
 
 let db;
 
 // Connect to database and create users table
 async function initializeDatabase() {
     db = await open({
-        filename: "./users.db",
+        filename: process.env.DB_PATH || "./users.db",
         driver: sqlite3.Database
     });
 
@@ -124,9 +123,9 @@ app.post("/login", async (req, res) => {
 // Start server after database initialization
 initializeDatabase()
     .then(() => {
-        app.listen(PORT, () => {
-            console.log(`Server running at http://localhost:${PORT}`);
-        });
+        app.listen(PORT, "0.0.0.0", () => {
+    console.log(`Server running on port ${PORT}`);
+});
     })
     .catch((error) => {
         console.error("Database initialization failed:", error);
