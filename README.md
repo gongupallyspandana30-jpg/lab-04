@@ -78,7 +78,7 @@ Passwords are stored as bcrypt hashes.
 ### 5. Wrong Password
 
 ![Wrong Password](screenshots/login_wrong_password.png)
-
+git status
 ### 6. Unknown Username
 
 ![Unknown User](screenshots/login_unknown_user.png)
